@@ -18,7 +18,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     })
   if (!videos) return
   if (videos.length === 1) {
-    res.redirect(`https://www.youtube.com/watch?v=${videos[0].id}`)
+    const url = `https://www.youtube.com/watch?v=${videos[0].id}`
+    if (req.query.debug) {
+      res.json(videos)
+    } else {
+      res.redirect(url)
+    }
   } else {
     res.json(videos)
   }
