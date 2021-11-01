@@ -1,5 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { promises as fs } from 'fs'
+import { join } from 'path'
 
 interface Video {
   id: string
@@ -9,7 +10,7 @@ interface Video {
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const [, month, day] = new Date().toISOString().substr(0, 10).split(`-`)
   const videos: Video[] | void = await fs
-    .readFile(`calendars/${month}.json`, `utf8`)
+    .readFile(join(process.cwd(), `calendars`, `${month}.json`), `utf8`)
     .then((txt) => JSON.parse(txt) as Video[])
     .then((json) => json.filter((d) => d.id).filter((d) => d.day === +day))
     .catch((e) => {
