@@ -6,7 +6,8 @@ module.exports = {
     return [
       {
         source: `/`,
-        destination: `/api/today`,
+        // destination: `/api/today`,
+        destination: `https://t.me/YogaWithAdrieneBot`,
         permanent: false,
       },
     ]
